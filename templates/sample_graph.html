@@ -35,7 +35,7 @@ $("#uid-form").submit(function(e) {
     e.preventDefault()
     var uid = $("#uid-input").val()
     var statuses = "status webStatus messengerStatus fbAppStatus otherStatus".split(" ");
-    var legit_url = 'https://cdn.rawgit.com/defaultnamehere/zzzzz/master/sample_data.csv'
+    var legit_url = 'https://raw.githubusercontent.com/defaultnamehere/zzzzz/master/sample_data.csv'
 
     d3.csv(legit_url, function(error, data) {
 
