@@ -88,15 +88,19 @@ class Fetcher():
 
     def fetch_user_name(self, uid):
         url="https://www.facebook.com/{}".format(uid)
-        response_obj = requests.get(url, params=self.params, headers=self.REQUEST_HEADERS, allow_redirects=True)
-        """
-        first split to remove ? params 
-        second split to remove https://www.facebook.com/
-        replace to remove every dot in the Name 
-        and title to captialise every word
-        """
-        name = response_obj.url.split("?")[0].split("/")[3]
-        name = name.replace("."," ").title()
+        try:
+            response_obj = requests.get(url, params=self.params, headers=self.REQUEST_HEADERS, allow_redirects=True)
+            """
+            first split to remove ? params 
+            second split to remove https://www.facebook.com/
+            replace to remove every dot in the Name 
+            and title to captialise every word
+            """
+            name = response_obj.url.split("?")[0].split("/")[3]
+            name = name.replace("."," ").title()
+        except requests.exceptions.TooManyRedirects as e:
+            print("to many redirects empty name now")
+            name = ""
         return name
 
 
