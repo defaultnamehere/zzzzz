@@ -21,17 +21,17 @@ class Grapher():
         # It's fiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiine
         os.system("mkdir -p {csv_output_dir}".format(csv_output_dir=CSV_OUTPUT_DIR))
 
-    def to_csv(self, uid, start_time, end_time):
+    def to_csv(self, uid, name, start_time, end_time):
 
         # The user's history.
-        status_history = history.StatusHistory(uid)
+        status_history = history.StatusHistory(uid, name)
 
         # Their Facebook username.
         #uname = fbapi.get_user_name(uid)
 
 
         # Generate a CSV from the multiple linear timeseries
-        with open("generated_graphs/csv/{uid}.csv".format(uid=uid), "w") as f:
+        with open("generated_graphs/csv/{uid}#{name}.csv".format(uid=uid, name=name), "w") as f:
 
             f.write("time,")
             f.write(",".join(status.Status.statuses))
@@ -52,8 +52,9 @@ class Grapher():
     def generate_all_csvs(self, start_time, end_time):
         for filename in os.listdir(LOG_DATA_DIR):
             print(filename)
-            uid = filename.split(".")[0]
-            self.to_csv(uid, start_time, end_time)
+            uid_and_name = filename.split(".")[0]
+            uid, name = uid_and_name.split("#")
+            self.to_csv(uid, name, start_time, end_time)
 
 
 if __name__ == "__main__":
