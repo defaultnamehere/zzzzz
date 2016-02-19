@@ -1,3 +1,4 @@
+import argparse as ap
 import json
 import os
 import time
@@ -6,15 +7,14 @@ import requests
 
 import graph
 
-# Load the secrets from files so some scrublord like me doesn't accidentally commit them to git.
-with open("SECRET_UID.txt") as f:
-    fbuid = f.read().strip()
 
-with open("SECRET_COOKIE.txt") as f:
-    fbcookie = f.read().strip()
+secrets = ap.Namespace()
 
-with open("SECRET_CLIENT_ID.txt") as f:
-    client_id = f.read().strip()
+# Load the secrets from file so some scrublord like me doesn't accidentally commit them to git.
+with open("SECRETS.txt") as f:
+    for line in f:
+        vals = line.strip().split('=', 1)
+        setattr(secrets, vals[0].lower(), vals[1])
 
 
 SLEEP_TIME = 1
@@ -28,7 +28,7 @@ class Fetcher():
         'accept': '*/*',
         'accept-encoding': 'gzip, deflate, sdch',
         'accept-language': 'en-US,en;q=0.8,en-AU;q=0.6',
-        'cookie': fbcookie,
+        'cookie': secrets.cookie,
         'dnt': '1',
         'origin': 'https://www.facebook.com',
         'referer': 'https://www.facebook.com/',
@@ -141,8 +141,8 @@ class Fetcher():
             # No idea what this is.
             'cb': '2qfi',
             # No idea what this is.
-            'channel': 'p_751783962',
-            'clientid': client_id, 
+            'channel': 'p_' + secrets.uid,
+            'clientid': secrets.client_id,
             'format': 'json',
             # Is this my online status?
             'idle': '0',
@@ -163,8 +163,8 @@ class Fetcher():
             'state': 'active',
             'sticky_pool': 'atn2c06_chat-proxy',
             'sticky_token': '0',
-            'uid': fbuid,
-            'viewer_uid': fbuid,
+            'uid': secrets.uid,
+            'viewer_uid': secrets.uid,
             'wtc': '171%2C170%2C0.000%2C171%2C171'
         }
 
