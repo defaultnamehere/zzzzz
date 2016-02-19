@@ -69,9 +69,9 @@ class Fetcher():
         return data
 
 
-    def _log_lat(self, uid, lat_time):
+    def _log_lat(self, uid, name, lat_time):
 
-        with open("log/{uid}.txt".format(uid=uid), "a") as f:
+        with open("log/{uid}#{name}.txt".format(uid=uid, name=name), "a") as f:
             # Now add an online status at the user's LAT.
             user_data = []
             user_data.append(lat_time)
@@ -85,6 +85,19 @@ class Fetcher():
             user_data.append(OFFLINE_STATUS_JSON)
             f.write("|".join(user_data))
             f.write("\n")
+
+    def fetch_user_name(self, uid):
+        url="https://www.facebook.com/{}".format(uid)
+        response_obj = requests.get(url, params=self.params, headers=self.REQUEST_HEADERS, allow_redirects=True)
+        """
+        first split to remove ? params 
+        second split to remove https://www.facebook.com/
+        replace to remove every dot in the Name 
+        and title to captialise every word
+        """
+        name = response_obj.url.split("?")[0].split("/")[3]
+        name = name.replace("."," ").title()
+        return name
 
 
 
@@ -114,12 +127,12 @@ class Fetcher():
                     for key in item["overlay"]:
                         if type(item["overlay"][key]) == dict:
                             uid = key
-
+                            name = self.fetch_user_name(uid)
                             # Log the LAT in this message.
-                            self._log_lat(uid, str(item["overlay"][uid]["la"]))
-
+                            self._log_lat(uid, name, str(item["overlay"][uid]["la"]))
+                            
                             # Now log their current status.
-                            with open("log/{uid}.txt".format(uid=uid), "a") as f:
+                            with open("log/{uid}#{name}.txt".format(uid=uid, name=name), "a") as f:
                                 user_data = []
                                 user_data.append(str(time.time()))
                                 user_data.append(json.dumps(item["overlay"][uid]["p"]))
@@ -130,7 +143,8 @@ class Fetcher():
                 if "buddyList" in item:
                     for uid in item["buddyList"]:
                         if "lat" in item["buddyList"][uid]:
-                            self._log_lat(uid, str(item["buddyList"][uid]["lat"]))
+                            name = self.fetch_user_name(uid)
+                            self._log_lat(uid, name, str(item["buddyList"][uid]["lat"]))
 
 
 
