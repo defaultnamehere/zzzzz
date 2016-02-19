@@ -13,12 +13,13 @@ Installation
 
 You'll also need to supply some way of authenticating yourself to Facebook.
 
-Do this by creating the following files:
+Do this by creating a SECRETS.txt file with the following lines:
 
-* SECRET_UID - Contains your Facebook user id
-* SECRET_COOKIE - Contains your Facebook cookie
-* SECRET_CLIENT_ID - Contains your Facebook client id. Find it by inspecting the GET parameters sent when your browser requests `facebook.com/pull` using your browser's dev tools.
-
+```
+uid=<Contains your Facebook user id>
+cookie=<Contains your Facebook cookie>
+client_id=<Contains your Facebook client id. Find it by inspecting the GET parameters sent when your browser requests `facebook.com/pull` using your browser's dev tools.>
+```
 
 Download some data
 ------------------
