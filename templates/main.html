@@ -9,7 +9,7 @@
     <form id="uid-form" method="POST" action="#">
         <label for="uid-input">Facebook uid to graph</label>
         <input id="uid-input" type="text"> </input>
-        <input type="submit"></input>
+        <input type="button" id="send" value="Consult"></input>
     </form>
 
     <style>
@@ -30,9 +30,10 @@
 <script type="text/javascript">
 
 
-$("#uid-form").submit(function(e) {
+$("#send").click(function(e) {
 
     var statuses = "status webStatus messengerStatus fbAppStatus otherStatus".split(" ");
+    var uid = $('#uid-input').val();
 
     d3.csv("data/" + uid, function(error, data) {
 
