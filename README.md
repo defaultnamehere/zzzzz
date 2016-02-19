@@ -9,7 +9,10 @@ The code is up there ^^^^ so I guess here's how you run it yourself.
 Installation
 -----------
 
+Just run 
 ```pip install -r requirements.txt```
+
+(virtualenv is for suckers right now)
 
 You'll also need to supply some way of authenticating yourself to Facebook.
 
