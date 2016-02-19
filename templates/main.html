@@ -31,6 +31,9 @@
 
 
 $("#uid-form").submit(function(e) {
+    e.preventDefault()
+
+    var uid = $("#uid-input").val();
 
     var statuses = "status webStatus messengerStatus fbAppStatus otherStatus".split(" ");
 
