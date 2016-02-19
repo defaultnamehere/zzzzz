@@ -34,7 +34,7 @@ $("#uid-form").submit(function(e) {
 
     var statuses = "status webStatus messengerStatus fbAppStatus otherStatus".split(" ");
 
-    d3.csv("data/" + uid, function(error, data) {
+    d3.csv("data/" + $("#uid-input").val(), function(error, data) {
 
         var ch = nv.addGraph(function() {
 
@@ -104,8 +104,10 @@ $("#uid-form").submit(function(e) {
             nv.utils.windowResize(chart.update);
 
             return chart;
-        });
+        }.bind(data));
     });
+
+	e.preventDefault();
 });
 
 
