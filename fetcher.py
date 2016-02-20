@@ -39,8 +39,8 @@ class Fetcher():
     JSON_PAYLOAD_PREFIX = "for (;;); "
 
     def __init__(self):
-        # It's fiiiiiiiiiiiiiine
-        os.system("mkdir -p {log_dir}".format(log_dir=graph.LOG_DATA_DIR))
+        if not os.path.exists(graph.LOG_DATA_DIR):
+            os.makedirs(graph.LOG_DATA_DIR)
         self.reset_params()
 
     def make_request(self):
