@@ -18,8 +18,10 @@ ONE_DAY_SECONDS = 60 * 60 * 24
 class Grapher():
 
     def __init__(self):
-        # It's fiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiine
-        os.system("mkdir -p {csv_output_dir}".format(csv_output_dir=CSV_OUTPUT_DIR))
+        try:
+            os.makedirs(CSV_OUTPUT_DIR)
+        except IOError:
+            pass
 
     def to_csv(self, uid, start_time, end_time):
 
