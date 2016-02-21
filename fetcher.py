@@ -61,7 +61,6 @@ class Fetcher():
                 data = json.loads(raw_response)
         except ValueError as e:
             print(str(e))
-            print(content)
             return None
 
         print("Response:" + str(data))
