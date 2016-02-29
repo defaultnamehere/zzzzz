@@ -37,7 +37,7 @@ Make some graphs
 
 1. Run `python graph.py` to convert all the raw log data into CSVs
 2. Run `python app.py` to start the 100% CSS-free "webapp"
-3. Go to `http://localhost:8000` to view the ultra-minimal "webapp"
+3. Go to `http://localhost:5000` to view the ultra-minimal "webapp"
 4. Paste the Facebook user id that you want to graph into the box.
 
 You did it!
