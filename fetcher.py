@@ -19,8 +19,8 @@ with open("SECRETS.txt") as f:
 
 SLEEP_TIME = 1
 
-OFFLINE_STATUS_JSON = """{"lat": "offline", "webStatus": "invisible", "fbAppStatus": "invisible", "otherStatus": "invisible", "status": "invisible", "messengerStatus": "invisible"}"""
-ACTIVE_STATUS_JSON = """{ "lat": "online", "webStatus": "invisible", "fbAppStatus": "invisible", "otherStatus": "invisible", "status": "active", "messengerStatus": "invisible"}"""
+OFFLINE_STATUS_JSON = "0"
+ACTIVE_STATUS_JSON = "1"
 
 class Fetcher():
     # Headers to send with every request.
