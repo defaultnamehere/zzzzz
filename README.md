@@ -1,10 +1,13 @@
-
 Stalky
 =====
 
 Um hello I guess you're here because you want to look at the code for this or run it yourself. 
 
 The code is up there ^^^^ so I guess here's how you run it yourself.
+
+What is this?
+=============
+Oh, reading [the blog post](https://defaultnamehere.tumblr.com/post/139351766005/graphing-when-your-facebook-friends-are-awake) would really make that more clear.
 
 Installation
 -----------
