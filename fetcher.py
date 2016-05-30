@@ -118,12 +118,14 @@ class Fetcher():
                             self._log_lat(uid, str(item["overlay"][uid]["la"]))
 
                             # Now log their current status.
-                            with open("log/{uid}.txt".format(uid=uid), "a") as f:
-                                user_data = []
-                                user_data.append(str(time.time()))
-                                user_data.append(json.dumps(item["overlay"][uid]["p"]))
-                                f.write("|".join(user_data))
-                                f.write("\n")
+                            if "p" in item["overlay"][uid]:
+                                print("waw actually made a log entry")
+                                with open("log/{uid}.txt".format(uid=uid), "a") as f:
+                                    user_data = []
+                                    user_data.append(str(time.time()))
+                                    user_data.append(json.dumps(item["overlay"][uid]["p"]))
+                                    f.write("|".join(user_data))
+                                    f.write("\n")
 
                 # This list contains the last active times (lats) of users.
                 if "buddyList" in item:
