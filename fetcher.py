@@ -119,7 +119,6 @@ class Fetcher():
 
                             # Now log their current status.
                             if "p" in item["overlay"][uid]:
-                                print("waw actually made a log entry")
                                 with open("log/{uid}.txt".format(uid=uid), "a") as f:
                                     user_data = []
                                     user_data.append(str(time.time()))
