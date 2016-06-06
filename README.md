@@ -1,7 +1,7 @@
 Stalky
 =====
 
-Um hello I guess you're here because you want to look at the code for this or run it yourself. 
+Um hello I guess you're here because you want to look at the code for this or run it yourself.
 
 The code is up there ^^^^ so I guess here's how you run it yourself.
 
@@ -12,7 +12,7 @@ Oh, reading [the blog post](https://defaultnamehere.tumblr.com/post/139351766005
 Installation
 -----------
 
-Just run 
+Just run
 ```pip install -r requirements.txt```
 
 (virtualenv is for suckers right now)
@@ -25,6 +25,7 @@ Do this by creating a SECRETS.txt file with the following lines:
 uid=<Contains your Facebook user id>
 cookie=<Contains your Facebook cookie>
 client_id=<Contains your Facebook client id. Find it by inspecting the GET parameters sent when your browser requests `facebook.com/pull` using your browser's dev tools.>
+excludes=<Contains your facebook friends ids which you want to exclude (optional)>
 ```
 
 Download some data
@@ -44,4 +45,3 @@ Make some graphs
 4. Paste the Facebook user id that you want to graph into the box.
 
 You did it!
-
