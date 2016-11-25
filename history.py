@@ -4,6 +4,8 @@ import time
 
 import status
 
+OFFLINE_STATUS_JSON = """{"lat": "offline", "webStatus": "invisible", "fbAppStatus": "invisible", "otherStatus": "invisible", "status": "invisible", "messengerStatus": "invisible"}"""
+ACTIVE_STATUS_JSON = """{ "lat": "online", "webStatus": "invisible", "fbAppStatus": "invisible", "otherStatus": "invisible", "status": "active", "messengerStatus": "invisible"}"""
 
 class StatusHistory():
     """Object representing the history for a particular user. History stored sparse."""
@@ -35,6 +37,10 @@ class StatusHistory():
             time, fields = line.split("|")
             # Only add new times, preferring earlier records in the file. This is probably not optimal since later records seem to be more likely to be LATs, but oh well gotta break a few algorithmic contraints to make a BILLION dollars.
             if time not in seen_times:
+                if fields is "0":
+                    fields = OFFLINE_STATUS_JSON
+                elif fields is "1":
+                    fields = ACTIVE_STATUS_JSON 
                 seen_times.add(time)
                 status_obj = status.Status(int(float(time)), fields)
                 activity.append(status_obj)
