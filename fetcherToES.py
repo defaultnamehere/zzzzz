@@ -9,7 +9,6 @@ import graph
 
 
 es = Elasticsearch()
-actions = []
 now = time.ctime()
 secrets = ap.Namespace()
 print "[+] Started at " + now
@@ -47,6 +46,7 @@ class Fetcher():
         self.reset_params()
         self.excludes = []
         self.uidToNameDict = {}
+        self.actions = []
         if hasattr(secrets, 'excludes'):
             self.excludes = secrets.excludes.split(',',1)
     
@@ -58,8 +58,10 @@ class Fetcher():
             '_id': idData,
             '_source':jData
             } 
-        actions.append(jsonobject)
-        helpers.bulk(es, actions, chunk_size=1000, request_timeout=200)
+        self.actions.append(jsonobject)
+        if len(self.actions) > 20:
+            helpers.bulk(es, self.actions, chunk_size=1000, request_timeout=200)
+            self.actions = []
     
     def findNameById(self, uid):
         try:

@@ -5,8 +5,8 @@ uid = 4 # just as example
 
 
 def nameById(uid):
-    r_data = requests.get("https://www.facebook.com/profile.php?id=" + str(uid)).content
     try:
+        r_data = requests.get("https://www.facebook.com/profile.php?id=" + str(uid)).content
         if "/profile/" + str(uid) in re.findall('/profile/[0-9]{0,16}', str(r_data)):
             namesList = re.findall('pageTitle\">[\w ]{2,160}', str(r_data)) # remember osas?!
             name = namesList[0].split("pageTitle\">")[1]
