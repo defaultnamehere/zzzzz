@@ -1,0 +1,40 @@
+PUT elasticstalk
+{
+  "mappings": {
+    "items": {
+      "properties": {
+        "lat": {
+          "type": "text"
+        },
+        "uid": {
+          "type": "text"
+        },
+        "webStatus": {
+          "type": "text"
+        },
+        "fbAppStatus": {
+          "type": "text"
+        },
+        "when": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss"
+        },
+        "otherStatus": {
+          "type": "text"
+        },
+        "status": {
+          "type": "text"
+        },
+        "messengerStatus": {
+          "type": "text"
+        },
+        "print_name": {
+          "type": "text"
+        }
+      }
+    }
+  },
+  "settings": {
+    "number_of_shards": 1
+  }
+}
