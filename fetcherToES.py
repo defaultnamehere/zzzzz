@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch, helpers
 
 import requests
 
-from zzzzz import graph
+import graph
 
 
 es = Elasticsearch()
@@ -64,22 +64,27 @@ class Fetcher():
     def findNameById(self, uid):
         try:
             full_name = self.uidToNameDict[uid]
-            print "Used stored"
             return full_name
         except KeyError: # uid not in dict
             try:
-                r_data = requests.get("https://www.facebook.com/profile.php?id=" + str(uid), headers=self.REQUEST_HEADERS).content
-                if "/profile/" + str(uid) in re.findall('/profile/[0-9]{0,16}', str(r_data)):
+                r_data = requests.get("https://www.facebook.com/profile.php?id=" + str(uid), headers=self.REQUEST_HEADERS, params=self.params).content
+                if "/profile/" + str(uid) in re.findall('/profile/[0-9]{0,30}', str(r_data)):
                     namesList = re.findall(r'pageTitle\">[\w ]{2,160}', str(r_data)) # remember osas?!
                     name      = namesList[0].split("pageTitle\">")[1]
                     full_name = name.split()[0] + "_" + name.split()[1] # need this, u'll c l8r
                     newFriend = {uid: full_name}
                     self.uidToNameDict.update(newFriend)
                     return full_name
+                elif len(re.findall(r'URL=/[\w. ]{5,20}', str(r_data))) > 0:
+                    full_name = re.findall(r'URL=/[\w. ]{5,20}', str(r_data))[0].strip("URL=/").replace(".", "_")
+                    newFriend = {uid: full_name}
+                    self.uidToNameDict.update(newFriend)
+                    return full_name
                 else:
                     return "name_not_found"
             except:
-                return "Error with Facebook"
+                print "error with fb"
+                return "Error_with_Facebook"
 
     def make_request(self):
         # Load balancing is for chumps. Facebook can take it.
