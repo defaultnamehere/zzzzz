@@ -10,5 +10,5 @@ Run `python fetcherToES.py` and wait for some data.
 # 0x04
 Go to `Visualize` -> `Create a visualization` -> choose whatever you prefer (`Vertical Bar`) -> choose `elasticstalk` (again, if you didn't change `index.json`) -> `Y-Axis = Count` and `X-Axis, Aggregation = Date Histogram, Field = When` and choose the `Interval` that you prefer. Click the blue arrow.
 
-# 0xtips
+# 0xTips
 If you don't have enough ram and everything stops, in `Visualize` search by name with `print_name:Bill_Gates`.
