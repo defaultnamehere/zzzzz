@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch, helpers
 
 import requests
 
-import graph
+from zzzzz import graph
 
 
 es = Elasticsearch()
@@ -64,6 +64,7 @@ class Fetcher():
     def findNameById(self, uid):
         try:
             full_name = self.uidToNameDict[uid]
+            print "Used stored"
             return full_name
         except KeyError: # uid not in dict
             try:
