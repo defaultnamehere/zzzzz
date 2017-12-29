@@ -6,4 +6,4 @@ RUN git clone https://github.com/pielco11/zzzzz && cd zzzzz && pip install -r re
 
 WORKDIR /
 
-CMD ["python", "fetcher"]
+CMD ["ls -l", "python", "fetcher.py"]
