@@ -1,7 +1,7 @@
 import argparse as ap
 import json, os, time, hashlib, re
 from datetime import datetime
-from elasticsearch import Elasticsearch, helpers 
+from elasticsearch import Elasticsearch, helpers
 
 import requests
 
@@ -45,11 +45,27 @@ class Fetcher():
             os.makedirs(graph.LOG_DATA_DIR)
         self.reset_params()
         self.excludes = []
-        self.uidToNameDict = {}
         self.actions = []
+        self.uidToNameDict = self.loadUidToNameDict()
         if hasattr(secrets, 'excludes'):
             self.excludes = secrets.excludes.split(',',1)
-    
+
+    def updateUND(self, uid, name):
+        with open("uid_to_name_dict.txt", "a") as up:
+            up.write(uid + ":" + name + "\n")
+            up.close()
+
+    def loadUidToNameDict(self):
+        tDict = {}
+        if os.path.isfile("uid_to_name_dict.txt"):
+            with open("uid_to_name_dict.txt", "r") as und:
+                for entry in und:
+                    tFriend = {entry.strip("\n").split(":")[0]: entry.strip("\n").split(":")[1]}
+                    tDict.update(tFriend)
+        else:
+            open("uid_to_name_dict.txt", "w").close()
+        return tDict
+
     def updateES(self, jData):
         idData = hashlib.md5(str(jData)).hexdigest()
         jsonobject= {
@@ -57,12 +73,12 @@ class Fetcher():
             '_type': 'items',
             '_id': idData,
             '_source':jData
-            } 
+            }
         self.actions.append(jsonobject)
         if len(self.actions) > 20:
             helpers.bulk(es, self.actions, chunk_size=1000, request_timeout=200)
             self.actions = []
-    
+
     def findNameById(self, uid):
         try:
             full_name = self.uidToNameDict[uid]
@@ -75,17 +91,20 @@ class Fetcher():
                     name      = namesList[0].split("pageTitle\">")[1]
                     full_name = name.split()[0] + "_" + name.split()[1] # need this, u'll c l8r
                     newFriend = {uid: full_name}
+                    self.updateUND(uid, full_name)
                     self.uidToNameDict.update(newFriend)
                     return full_name
                 elif len(re.findall(r'URL=/[\w. ]{5,20}', str(r_data))) > 0:
                     full_name = re.findall(r'URL=/[\w. ]{5,20}', str(r_data))[0].strip("URL=/").replace(".", "_")
                     newFriend = {uid: full_name}
+                    self.updateUND(uid, full_name)
                     self.uidToNameDict.update(newFriend)
                     return full_name
                 else:
+                    print "[-] Name not found for uid: " + str(uid)
                     return "name_not_found"
             except:
-                print "error with fb"
+                print "[x] Error with Facebook for uid: " + str(uid)
                 return "Error_with_Facebook"
 
     def make_request(self):
