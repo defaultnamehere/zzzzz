@@ -4,6 +4,6 @@ LABEL maintainer="https://github.com/pielco11"
 
 RUN git clone https://github.com/pielco11/zzzzz && cd zzzzz && pip install -r requirements.txt
 
-WORKDIR /zzzzz
+WORKDIR /
 
 CMD ["python", "zzzzz/fetcher.py"]
