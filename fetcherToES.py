@@ -8,7 +8,7 @@ import requests
 import graph
 
 
-es = Elasticsearch()
+es = Elasticsearch(["172.17.0.1", "127.0.0.1"])
 now = time.ctime()
 secrets = ap.Namespace()
 print "[+] Started at " + now
