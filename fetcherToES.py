@@ -1,5 +1,5 @@
 import argparse as ap
-import json, os, time, hashlib, re
+import json, os, time, hashlib, re, sys
 from datetime import datetime
 from elasticsearch import Elasticsearch, helpers
 
@@ -8,7 +8,7 @@ import requests
 import graph
 
 
-es = Elasticsearch(["172.17.0.1", "127.0.0.1"])
+es = Elasticsearch([sys.argv[1], "127.0.0.1"])
 now = time.ctime()
 secrets = ap.Namespace()
 print "[+] Started at " + now

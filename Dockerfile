@@ -6,4 +6,5 @@ RUN git clone https://github.com/pielco11/zzzzz && cd zzzzz && pip install -r re
 
 WORKDIR /zzzzz
 
-CMD ["python", "/zzzzz/fetcherToES.py"]
+CMD ["echo", "[x] Need elasticsearch IP as arg."]
+ENTRYPOINT ["python", "/zzzzz/fetcherToES.py"]
